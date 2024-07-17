@@ -27,16 +27,25 @@ const aiForm = async (req, res) => {
         const responseText = await run(question, answer);
         console.log(`Generated response: ${responseText}`);
 
-        // Save data to database
+        // Parse the response text into a JavaScript object
+        const responseObj = JSON.parse(responseText);
+
+        // Create the final response object with marks first and feedback below
+        const formattedResponse = {
+            marks: responseObj.marks,
+            feedback: responseObj.feedback
+        };
+
+        // Save data to the database
         const newData = new AiData({
             question,
             answer,
-            response: responseText // Store the text response directly
+            response: formattedResponse // Store the formatted response object
         });
         await newData.save();
 
-        // Respond with the generated result
-        res.json({ response: responseText });
+        // Respond with the formatted response
+        res.json({ response: formattedResponse });
     } catch (error) {
         console.error(`Error processing request: ${error.message}`);
         res.status(500).json({ error: 'An error occurred while processing your request. Please try again later.' });

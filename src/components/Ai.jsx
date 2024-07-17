@@ -4,11 +4,15 @@ const Ai = () => {
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
     const [response, setResponse] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        setResponse('Loading...');
+        setLoading(true);
+        setError('');
+        setResponse('');
 
         try {
             const res = await fetch('http://localhost:5000/api/ai', {
@@ -24,19 +28,21 @@ const Ai = () => {
             }
 
             const result = await res.json();
-            setResponse(JSON.stringify(result, null, 2));
+            setResponse(result.response);
         } catch (error) {
-            setResponse(`Error: ${error.message}`);
+            setError(`Error: ${error.message}`);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-            <h1 className="text-3xl font-bold mb-6 text-gray-800">AI Evaluator -Ask and get feedback</h1>
+            <h1 className="text-3xl font-bold mb-6 text-gray-800">AI Evaluator - Ask and get feedback</h1>
             <form 
                 id="evaluation-form" 
                 onSubmit={handleSubmit} 
-                className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg"
+                className="bg-gray-400 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg"
             >
                 <div className="mb-4">
                     <label 
@@ -80,15 +86,21 @@ const Ai = () => {
                     </button>
                 </div>
             </form>
-            <div className="w-full max-w-lg">
+            <div className="w-full max-w-2xl">
                 <h2 className="text-2xl font-semibold mb-4 text-gray-800">Response</h2>
-                <pre 
-                    id="response" 
-                    className="bg-white shadow-md rounded p-4 overflow-x-auto w-full h-40" // Adjusted height here
-                    style={{ minWidth: '30rem' }} // Adjusted minimum width here
-                >
-                    {response}
-                </pre>
+                {loading ? (
+                    <p className="text-gray-700">Loading...</p>
+                ) : error ? (
+                    <p className="text-red-500">{error}</p>
+                ) : (
+                    <pre 
+                        id="response" 
+                        className="bg-gray-400 shadow-md rounded p-4 overflow-x-auto w-full h-52" 
+                        style={{ minWidth: '50rem' }} 
+                    >
+                        {response && JSON.stringify(response, null, 2)}
+                    </pre>
+                )}
             </div>
         </div>
     );
