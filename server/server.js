@@ -29,7 +29,7 @@ app.use("/api", aiRoute);
 
 
 
-const PORT=5000;
+const PORT=process.env.PORT || 5000;
 
 connectDb().then(()=>{    //if connection sucessfull then only start the server
        
