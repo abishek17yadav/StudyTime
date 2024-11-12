@@ -15,6 +15,8 @@ import Profile from './components/Profile';
 import Login from './components/Login';
 import Register from './components/Register';
 import Ai from './components/Ai';
+import Tasks from './components/Tasks';
+import Pdfs from './components/Pdfs';
 
 function App() {
   const location = useLocation();
@@ -30,14 +32,15 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/courses" element={<Courses />} />
-            <Route path="/conductexam" element={<ConductExam />} />
+            <Route path="/quiz" element={<ConductExam />} />
             <Route path="/exam/:subject" element={<FullScreenWrapper><ExamPage /></FullScreenWrapper>} />
             <Route path="/result" element={<FullScreenWrapper><Results /></FullScreenWrapper>} />
-            <Route path="/pyqs" element={<Pyqs />} />
+            <Route path="/pdfs" element={<Pdfs />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/ai" element={<Ai />} />
+            <Route path="/tasks" element={<Tasks />} />
             <Route path="/login" element={<FullScreenWrapper><Login /></FullScreenWrapper>} />
             <Route path="/register" element={<FullScreenWrapper><Register /></FullScreenWrapper>} />
             <Route path="*" element={<FullScreenWrapper><NotFound /></FullScreenWrapper>} />

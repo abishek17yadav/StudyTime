@@ -66,15 +66,15 @@ const Dashboard = () => {
           className="bg-white p-6 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
           onClick={() => handleCardClick('/pyqs')}
         >
-          <h3 className="text-xl font-semibold mb-2">PYQs</h3>
+          <h3 className="text-xl font-semibold mb-2">Pdfs</h3>
           <p>Practice with previous year questions to test your knowledge.</p>
         </div>
         <div
           className="bg-white p-6 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
           onClick={() => handleCardClick('/conductexam')}
         >
-          <h3 className="text-xl font-semibold mb-2">Conduct Exam</h3>
-          <p>Set up and conduct exams for your students easily.</p>
+          <h3 className="text-xl font-semibold mb-2">Take Quiz</h3>
+          <p>Take quiz and improve your knowledge</p>
         </div>
         <div
           className="bg-white p-6 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
